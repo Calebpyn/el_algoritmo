@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Magilio";
+  src: url("/src/assets/fonts/MagilioRegular-8Mxvg.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "thunder-lc";
+  src: url("/src/assets/fonts/Thunder-LC.otf") format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "thunder-m-lc";
+  src: url("/src/assets/fonts/Thunder-MediumLC.otf") format("otf");
+  font-weight: medium;
+  font-style: normal;
+}
+
+.magilio-font {
+  font-family: "Magilio", sans-serif;
+}
+
+.thunder-lc-font {
+  font-family: "thunder-lc", sans-serif;
+}
+
+.thunder-m-lc-font {
+  font-family: "thunder-m-lc", sans-serif;
+}
+
+.tr {
+  transition: all ease 0.3s;
+}
+
+.tr-slow {
+  transition: all ease 0.8s;
+}
+
+/* Oculta la scrollbar en navegadores modernos */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para Firefox */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
