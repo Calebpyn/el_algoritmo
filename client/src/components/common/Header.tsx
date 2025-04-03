@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ setSideBar }) => {
 
   return (
     <div className="fixed top-0 w-full magilio-font h-auto justify-self-center items-center z-50">
-      <div className="w-full flex h-full bg-[#f7f6f268] backdrop-blur-lg shadow-lg px-2 justify-between items-center pl-1">
+      <div className="w-full flex h-full bg-[#f7f6f268] backdrop-blur-lg shadow-lg px-2 justify-between items-center pl-2">
         <span
           className="magilio-font md:text-8xl sm:text-6xl text-5xl flex items-center mt-3 select-none cursor-pointer md:flex-row flex-col"
           onClick={() => {

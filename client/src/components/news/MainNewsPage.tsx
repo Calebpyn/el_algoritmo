@@ -70,16 +70,16 @@ function MainNewsPage() {
 
   const topicsRef = useRef<HTMLDivElement>(null); // Ref para el contenedor de topics
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        topicsRef.current &&
-        !topicsRef.current.contains(event.target as Node)
-      ) {
-        setTopicsOpen(false);
-      }
-    };
+  const handleClickOutside = (event: MouseEvent) => {
+    if (
+      topicsRef.current &&
+      !topicsRef.current.contains(event.target as Node)
+    ) {
+      setTopicsOpen(false);
+    }
+  };
 
+  useEffect(() => {
     if (topicsOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -152,15 +152,20 @@ function MainNewsPage() {
         <div></div>
       </div>
       <div
-        className={`fixed bottom-0 sm:hidden tr flex right-0 mb-16 mr-10 bg-[#D9D9D9] shadow-xl rounded-full p-5 hover:scale-105 tr hover:bg-[#9d9d9d] cursor-pointer z-[100]`}
-        onClick={() => setTopicsOpen(!topicsOpen)}
+        className={`fixed bottom-0 sm:hidden tr flex right-0 mb-16 mr-10 bg-[#D9D9D9] shadow-xl rounded-full p-5 hover:scale-105 tr hover:bg-[#9d9d9d] cursor-pointer z-[999] ${
+          topicsOpen ? "translate-x-[200%]" : ""
+        }`}
+        onClick={() => {
+          setTopicsOpen(!topicsOpen);
+          console.log("Clicked!");
+        }}
       >
-        <span className={topicsOpen ? "rotate-180 tr" : "tr"}>
+        <span className={topicsOpen ? "" : "tr"}>
           <FaChevronUp />
         </span>
       </div>
       <div
-        className={`fixed bottom-0 right-0 z-50 pb-36 w-[70%] tr ${
+        className={`fixed bottom-0 right-0 z-50 pb-16 w-[70%] pointer-events-none tr ${
           topicsOpen ? "translate-y-0" : "translate-y-full"
         }`}
         ref={topicsRef}
@@ -169,7 +174,7 @@ function MainNewsPage() {
           {topics.map((topic, idx) => (
             <span
               key={idx}
-              className={`w-full text-lg tr shadow-2xl  py-1 cursor-pointer rounded-full backdrop-blur-md px-3 ${
+              className={`w-full text-lg tr shadow-2xl  py-1 cursor-pointer rounded-full pointer-events-auto backdrop-blur-md px-3 ${
                 selectedTopic == topic.id ? "bg-[#9191918d]" : "bg-[#d9d9d96f]"
               }`}
               onClick={() => {
