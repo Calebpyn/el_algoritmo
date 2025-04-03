@@ -27,8 +27,6 @@ type Notesis = {
   publday: string;
 };
 
-type categoriesType = { id: number; name: String };
-
 function MainNewsPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
