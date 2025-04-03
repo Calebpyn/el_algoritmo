@@ -29,15 +29,6 @@ type Notesis = {
 
 type categoriesType = { id: number; name: String };
 
-const categories: categoriesType[] = [
-  { id: 1, name: "Códigos & Cafecito ☕💻" },
-  { id: 2, name: "Money Talks 💸" },
-  { id: 3, name: "El Chisme de la Bolsa 📉" },
-  { id: 4, name: "Viral o Fake 🤥" },
-  { id: 5, name: "La Realidad Virtual 🌐" },
-  { id: 6, name: "Noticias del Futuro 🔮" },
-];
-
 function MainNewsPage() {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -45,8 +36,7 @@ function MainNewsPage() {
   const [topicsOpen, setTopicsOpen] = useState<boolean>(false);
 
   const [notas, setNotas] = useState<Notesis[]>([]);
-  const [topics, _] = useState(categories);
-  const [selectedTopic, setSelectedTopic] = useState<number>(1);
+  const [selectedTopic, setSelectedTopic] = useState<number>(0);
 
   useEffect(() => {
     const fetchNotas = async () => {
@@ -103,21 +93,21 @@ function MainNewsPage() {
         ref={containerRef}
       >
         <span className="text-2xl font-bold">
-          {notas.length > 0 ? notas[selectedTopic - 1]!.titulo : null}
+          {notas.length > 0 ? notas[selectedTopic]!.titulo : null}
         </span>
         <p style={{ whiteSpace: "pre-line" }}>
-          {notas.length > 0 ? notas[selectedTopic - 1]!.contenido : null}
+          {notas.length > 0 ? notas[selectedTopic]!.contenido : null}
         </p>
 
         <span className="mt-16 font-bold text-xl flex justify-between items-center">
           <span>El dataset</span>
           <span className="text-base font-light">
-            {notas[selectedTopic - 1]!.publday}
+            {notas[selectedTopic]!.publday}
           </span>
         </span>
         <span className="gap-2 w-full flex-wrap flex mb-10">
           {notas.length > 0
-            ? notas[selectedTopic - 1]!.fuentes.map((fuente, idx) => (
+            ? notas[selectedTopic]!.fuentes.map((fuente, idx) => (
                 <a
                   key={idx}
                   className="bg-[#D9D9D9] px-2 py-1 overflow-hidden tr cursor-pointer hover:bg-[#919191]"
@@ -133,19 +123,22 @@ function MainNewsPage() {
       </div>
       <div className="w-[30%] h-full flex-col justify-between items-center pt-[140px] sm:flex hidden">
         <div className="w-full px-10 flex flex-col gap-5">
-          {topics.map((topic, idx) => (
+          {notas.map((nota, idx) => (
             <span
               key={idx}
               className={`w-full text-xl tr cursor-pointer ${
-                selectedTopic == topic.id
+                selectedTopic ==
+                notas.findIndex((sub_nota) => sub_nota.id === nota.id)
                   ? "font-bold -ml-6"
                   : "hover:font-bold"
               }`}
               onClick={() => {
-                setSelectedTopic(topic.id);
+                setSelectedTopic(
+                  notas.findIndex((sub_nota) => sub_nota.id === nota.id)
+                );
               }}
             >
-              {topic.name}
+              {nota.categoria.nombre}
             </span>
           ))}
         </div>
@@ -171,17 +164,22 @@ function MainNewsPage() {
         ref={topicsRef}
       >
         <div className={`w-full pr-5 flex flex-col gap-5`}>
-          {topics.map((topic, idx) => (
+          {notas.map((nota, idx) => (
             <span
               key={idx}
               className={`w-full text-lg tr shadow-2xl  py-1 cursor-pointer rounded-full pointer-events-auto backdrop-blur-md px-3 ${
-                selectedTopic == topic.id ? "bg-[#9191918d]" : "bg-[#d9d9d96f]"
+                selectedTopic ==
+                notas.findIndex((sub_nota) => sub_nota.id === nota.id)
+                  ? "bg-[#9191918d]"
+                  : "bg-[#d9d9d96f]"
               }`}
               onClick={() => {
-                setSelectedTopic(topic.id);
+                setSelectedTopic(
+                  notas.findIndex((sub_nota) => sub_nota.id === nota.id)
+                );
               }}
             >
-              {topic.name}
+              {nota.categoria.nombre}
             </span>
           ))}
         </div>

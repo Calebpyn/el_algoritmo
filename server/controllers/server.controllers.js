@@ -21,7 +21,7 @@ const todayNotes = async (req, res) => {
     const { data: notas, error: notasError } = await supabase
       .from("notesis")
       .select(`*, categoria (id,nombre), fuentes(*)`)
-      .order("publday", { ascending: true }) // Ordena por la fecha más cercana
+      .order("publday", { ascending: false }) // Ordena por la fecha más cercana
       .limit(categoryCount); // Límite basado en el número de categorías
 
     if (notasError) throw notasError;
