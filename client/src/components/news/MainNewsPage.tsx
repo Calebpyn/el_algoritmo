@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import api from "../../api";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FaChevronUp } from "react-icons/fa";
+import ReactMarkdown from "react-markdown";
 
 type Categoria = {
   id: number;
@@ -67,6 +68,13 @@ function MainNewsPage() {
     }
   };
 
+  const cleanText = (text: string) => {
+    return text
+      .replace(/\\n/g, "\n")
+      .replace(/\\\*/g, "*")
+      .replace(/\\"/g, '"');
+  };
+
   useEffect(() => {
     if (topicsOpen) {
       document.addEventListener("mousedown", handleClickOutside);
@@ -91,10 +99,16 @@ function MainNewsPage() {
         ref={containerRef}
       >
         <span className="text-2xl font-bold">
-          {notas.length > 0 ? notas[selectedTopic]!.titulo : null}
+          <ReactMarkdown>
+            {notas.length > 0 ? notas[selectedTopic]!.titulo : null}
+          </ReactMarkdown>
         </span>
         <p style={{ whiteSpace: "pre-line" }}>
-          {notas.length > 0 ? notas[selectedTopic]!.contenido : null}
+          <ReactMarkdown>
+            {notas.length > 0
+              ? cleanText(notas[selectedTopic]!.contenido)
+              : null}
+          </ReactMarkdown>
         </p>
 
         <span className="mt-16 font-bold text-xl flex justify-between items-center">
